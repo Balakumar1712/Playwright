@@ -1,25 +1,25 @@
 import { test, expect } from '@playwright/test';
-const {chromium} = require('@playwright/test');
 
 
-test("Test",async () => {
-   const browser = await chromium.launch({headless: false});
-
-const context = await browser.newContext();
-
-const Page = await context.newPage();
+test("Login Test",async ({browser}) => {
+const context = await browser.newContext({ headless: false });
+const page = await context.newPage();
 
 let pwd = "secret_sauce";
 let usr = "standard_user";
 
-await Page.goto('https://www.saucedemo.com');
+await page.goto('https://www.saucedemo.com');
 
-await Page.fill('[data-test="username"]', usr);
+await page.pause();
+// using object locator
+await expect(page.locator("//*[@id='root']//div[contains(text(),'Swag Labs')]")).toHaveText('Swag Labs');
 
-await Page.locator("//*[@name ='password']").fill(pwd);
+await page.fill('[data-test="username"]', usr);
 
-await Page.click('[data-test="login-button"]');
+await page.locator('[data-test="username"]').press('Tab');
 
-await context.close();
-await browser.close();
+await page.locator("//*[@name ='password']").fill(pwd);
+
+await page.locator('input:has-text("LOGIN")').click();
+
 })
