@@ -1,0 +1,58 @@
+Running Test :
+
+npx playwright test  - run all the browser in headless mode
+
+npx playwright test --workers 3 - runs with 3 workers in parallel
+
+npx playwright test one.spec.js - runs a specfic test file
+
+npx playwright test one.spec.js two.spec.js - runs a specfic test file
+
+npx playwright test --debug
+
+npx playwright test ./tests/Sample_test.spec.js --project chromium --headed
+
+Create a project:
+
+Step 1 - Create a new file under test folder
+Step 2 - Add module ‘playwright/test’
+
+	const { test, expect } = require('@playwright/test');
+
+Step 3 - Create a test block - test(title, testFunction)
+
+test('My First Test',  async ({page}) =＞ {
+    await page.goto('https://google.com');
+    await expect(page).toHaveTitle('Google');
+})
+
+require() is a node js bulit-in function, here loading test and expect
+
+The keyword async before a function makes the function return a promise
+The keyword await before a function makes the function wait for a promise
+
+Record Test:
+npx playwright codegen
+npx playwright codegen --browser chromium
+Playwright comes with a tool - Codegen also called Test Generator
+Can be used to record test and generate test scripts
+It Opens 2 windows
+A browser window to interacts with the website
+Playwright Inspector window to record test
+
+Web Object:
+
+Locator - Is a class in playwright library
+
+we take Xpath,CSS slector, ID, Name, class
+
+await page.locator('input:has-text("LOGIN")').click()
+
+if we do not give input in has it will search all the elements in the page.
+
+For Playwright Inspector :-
+
+await page.pause();
+npx playwright test --debug
+npx playwright codegen
+npx playwright codegen --browser chromium
