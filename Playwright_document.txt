@@ -56,3 +56,32 @@ await page.pause();
 npx playwright test --debug
 npx playwright codegen
 npx playwright codegen --browser chromium
+
+Assertions:
+
+Checks or Verification
+Check actual = expected
+Assertions in Playwright
+Playwright Test uses expect library for test assertions
+
+Check element Present/Not present
+await expect(page.locator('text=The Kitchen')).toHaveCount(1);
+await page.$('text=The Kitchen')-- Return true or false
+
+Check element Visible/Hidden
+wait page.waitForSelector('//*[text()="Products"]', { state: 'visible' });
+await expect(page.locator('text=The Kitchen')).toBeVisible()
+await expect(page.locator('text=The Kitchen')).toBeHidden()
+
+Check element  Enabled/Disabled
+await expect(page.locator('text=The Kitchen')).toBeEnabled()
+await expect(page.locator('text=The Kitchen')).toBeDisabled()
+
+Soft Assertions
+do not terminate test execution
+mark the test as failed
+await expect.soft(page.locator('text=The Kitchen')).toHaveText('XYZ')
+
+Check element Text matches value or not
+await expect(page.locator('text=The Kitchen')).toHaveText('The Kitchen')
+await expect(page.locator('text=The Kitchen')).not.toHaveText('ABCD')
